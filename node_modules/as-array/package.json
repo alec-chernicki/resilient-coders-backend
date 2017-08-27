@@ -1,0 +1,39 @@
+{
+  "name": "as-array",
+  "version": "1.0.0",
+  "description": "Takes a single argument and returns an array.  If the argument is undefined, returns an empty array.  If the argument is scalar it returns [arg].  Simplifies code paths that may take one or many instances of their primary argument.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/weo-edu/as-array"
+  },
+  "keywords": [
+    "as",
+    "array",
+    "convert",
+    "to",
+    "array",
+    "to",
+    "array",
+    "utility"
+  ],
+  "author": "ashaffer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/weo-edu/as-array/issues"
+  },
+  "homepage": "https://github.com/weo-edu/as-array",
+  "dependencies": {
+    "isarray": "0.0.1"
+  },
+  "devDependencies": {
+    "chai": "^2.1.0",
+    "mocha": "^2.1.0"
+  }
+}

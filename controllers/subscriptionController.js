@@ -1,0 +1,49 @@
+const axios = require('axios');
+var Qs = require('qs');
+
+// TODO: All these functions are duplicated, refactor
+
+const hubspotForms = {
+  general: '/uploads/form/v2/2253693/1c55b765-1557-4ee8-af8c-fa7c93f7317e',
+  company: '/uploads/form/v2/2253693/65cdc2ba-8e62-4c9c-9e67-c0d8c8ac82bd',
+  volunteer: '/uploads/form/v2/2253693/22885b9d-aad6-4184-8e73-ecb19d207f28',
+  diversityplaybook:
+    '/uploads/form/v2/2253693/2c5d597a-05d9-44ba-b602-dc608b1cb8ef',
+};
+
+exports.postSubscription = (req, res) => {
+  const formUrl = hubspotForms[req.params.formName];
+  if (!formUrl) {
+    return res.sendStatus(500);
+  }
+
+  const postData = Qs.stringify({
+    firstname: req.body.firstName,
+    lastname: req.body.lastName,
+    company: req.body.company,
+    email: req.body.email,
+    hs_context: JSON.stringify({
+      hutk: req.cookies.hubspotutk,
+      ipAddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+      pageUrl: 'http://www.example.com/form-page',
+      pageName: 'Resilient Coders',
+    }),
+  });
+
+  axios({
+    url: formUrl,
+    method: 'POST',
+    baseURL: 'https://forms.hubspot.com',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Length': postData.length,
+    },
+    data: postData,
+  })
+    .then(response => {
+      return res.sendStatus(200);
+    })
+    .catch(e => {
+      return res.sendStatus(500);
+    });
+};
